@@ -1,0 +1,131 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Custom styles for this template -->
+<link href="/static/css/style copy.css" rel="stylesheet" />
+
+
+
+
+
+        <style>
+            body {
+                background-color: aqua;
+                left: 100%;
+            }
+
+        </style>
+        <!-- contact section -->
+        <section class="contact_section layout_padding">
+            <div class="container-fluid">
+                <div class="col-lg-4 col-md-5 offset-md-4">
+                    <div class="heading_container">
+                        <h2>
+                            Contact Us
+                        </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-5 offset-md-4">
+                        <div class="form_container">
+                            <form action="">
+                                <div>
+                                    <input type="text" placeholder="Your Name" />
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="Phone Number" />
+                                </div>
+                                <div>
+                                    <input type="email" placeholder="Email" />
+                                </div>
+                                <div>
+                                    <input type="text" class="message-box" placeholder="Message" />
+                                </div>
+                                <div class="btn_box">
+                                    <button type="send" formaction="https://httpbin.org/send" formmedhod="SEND">SEND
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end contact section -->
+
+        <!-- info section -->
+        <section class="info_section ">
+
+            <div class="container">
+                <div class="contact_nav">
+                    <a href="tel:+254758552783">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <span>
+                            Call : +254 758552783
+                        </span>
+                    </a>
+                    <a href="mailto:drgnsmsh@gmail.com">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span>
+                            Email : drgnsmsh@gmail.com
+                        </span>
+                    </a>
+                </div>
+
+
+                <div class="info_bottom">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="info_logo">
+                                <a href="index.html">
+                                    <img src="images/logo2.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-7 ml-auto">
+                            <div class="social_box">
+                                <a href="https://www.tiktok.com/@animeandcodingpage?_t=8e08pIty9qw&_r=1">
+                                    <i class="fa fa-tiktok" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://instagram.com/tony_spirde?igshid=MzNlNGNkZWQ4Mg==">
+                                    <i class="fa fa-instagram" aria-hidden="true" style="background-color: aqua;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- end info_section -->
+
+
+        <!-- footer section -->
+        <footer class="footer_section">
+            <div class="container">
+                <p>
+                    &copy; <span id="displayYear"></span> All Rights Reserved By Antony Ndonga.
+
+            </div>
+        </footer>
+    </div>
+    <!-- footer section -->
+
+   
+    <script src="/static/js/bootstrap.js"></script>
+  
+
+
+    {% endblock %}

@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .bg-image {
+/* The image used */
+        background-image: url(/static/images/bgflllll.png);
+
+/* Add the blur effect */
+filter: blur(8px);
+-webkit-filter: blur(8px);
+
+/* Full height */
+height: 100%;
+
+/* Center and scale the image nicely */
+background-position: right;
+background-repeat: no-repeat;
+background-size: cover;
+}
+</style>
+
+<div class="bg-image"></div>
+<div class="container">
+<div class="col-12">
+    <div class="row">
+        <div class="col-lg-5 col-md-6 col-sm-12">
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                + Add New Item
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Item:</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/addsales" method="post">
+
+                                <div class="mb-3">
+                                    <label for="product" class="form-label">Choose a product</label>
+                                    <select name="pid">
+
+                                        {% for i in prods %}
+
+                                        <option value="{{ i[0] }}">{{ i[1] }}</option>
+
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="exampleInputID" class="form-label">Quantiy</label>
+                                    <input type="number" name="quantity" class="form-control"
+                                        id="exampleInputPassword1">
+                                </div>
+
+                                <div>
+                                    <button type="submit" class="btn btn-md btn-success">Submit</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+
+
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+        <table id="myTable" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">PID</th>
+                    <th scope="col">QUANTITY</th>
+                    <th scope="col">CREATED_AT</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in sales %}
+                <tr>
+                    <th scope="row">{{ s[0]}}</th>
+                    <td name="pid" id="product">
+                        {% for i in prods %}
+                        {% if i[0] == s[1] %}
+                        {{ i[1] }}
+                        {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ s[2]}}</td>
+                    <td>{{ s[3]}}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

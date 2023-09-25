@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/register.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    .alert {
+      padding: 8px;
+      border-radius: 0px;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      border-width: 0px;
+      border-style: solid;
+    }
+
+    .alert-error {
+
+      color: rgb(231, 17, 17);
+    }
+
+    .alert-info {
+      color: rgb(241, 178, 178);
+    }
+  </style>
+
+  {% for category, message in get_flashed_messages(with_categories=True) %}
+  <div class="alert alert-{{category}}">{{ message }}</div>
+  {% endfor %}
+  <div class="container">
+    <h2 class="text-center text-dark mt-5">ANTONY MARKET</h2>
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <form action="/signup" method="POST">
+              <div class="mb-3">
+                <label for="name" class="form-label">
+                  <p style="color: rgb(26, 23, 23);">Your Name</p>
+                </label>
+                <input type="text" class="form-control" name="full_name" id="name" placeholder="enter your full name">
+
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">
+                  <p style="color: rgb(13, 13, 13);">Your Email</p>
+                </label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="enter your email">
+
+              </div>
+
+              <div class="mb-3">
+                <label for="password1" class="form-label">
+                  <p style="color: rgb(1, 1, 1);">Password</p>
+                </label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="enter password">
+              </div>
+              <div class="text-centerss">
+                <button type="submit" class="btn btn-primary">Register</button>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <p style="color: rgb(19, 24, 17);">Already have an account? <a href="/login">Login</a></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

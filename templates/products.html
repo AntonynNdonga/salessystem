@@ -1,0 +1,182 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="bg-image"></div>
+<div class="container">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-lg-5 col-md-6 col-sm-12">
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    + Add New Item
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Item:</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/addproducts" method="post">
+                                    <div class="mb-3">
+                                        <label for="exampleInputID" class="form-label">Name</label>
+                                        <input type="text" name="name" class="form-control" id="exampleInputPassword1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputID" class="form-label">Buying Price</label>
+                                        <input type="number" name="buying_price" class="form-control"
+                                            id="exampleInputPassword1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputID" class="form-label">Selling Price</label>
+                                        <input type="number" name="selling_price" class="form-control"
+                                            id="exampleInputPassword1">
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-md btn-success">Submit</button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">NAME</th>
+                                <th scope="col">BUYING PRICE</th>
+                                <th scope="col">SELLING PRICE</th>
+                                <th scope="col">BARCODE</th>
+                                <th scope="col">REMAINING STOCK</th>
+                                <th scope="col">DELETE</th>
+                                <th scope="col">EDIT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in prods %}
+                            <tr>
+                                <th scope="row">{{ i[0]}}</th>
+                                <td>{{ i[1]}}</td>
+                                <td>{{ i[2]}}</td>
+                                <td>{{ i[3]}}</td>
+                                <td><img src="{{ url_for('static', filename='barcodes/' + i[0]|string + '.png.png' )  }}"
+                                        alt="Barcode" width="100" height="100"></td>
+                                {% if remaining_stock(i.0) | int < 20 %} <td style="background-color:red;">{{
+                                    remaining_stock(i.0) }}
+                                    </td>
+                                    {% elif remaining_stock(i.0) | int < 50 %} <td style="background-color: yellow;">{{
+                                        remaining_stock(i.0) }}</td>
+                                        {% elif remaining_stock(i.0) | int > 50 %}
+                                        <td style="background-color: rgb(110, 221, 110);">{{ remaining_stock(i.0) }}
+                                        </td>
+                                        {% else %}
+                                        <td style="background-color: white;">{{ remaining_stock(i.0) }}</td>
+                                        {% endif %}
+
+                                        <td> <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal{{ i[0] }}">
+                                                Delete product
+                                            </button>
+
+                                            <div class="modal fade" id="deleteModal{{ i[0] }}" tabindex="-1"
+                                                aria-labelledby="deleteModalLabel{{ i[0] }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5"
+                                                                id="deleteModalLabel{{ i[0] }}">delete
+                                                                product {{ i[1] }}</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                        </td>
+
+                                        <td> <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ i[0] }}">
+                                                Edit product
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="editModal{{ i[0] }}" tabindex="-1"
+                                                aria-labelledby="editModalLabel{{ i[0] }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="editModalLabel{{ i[0] }}">
+                                                                Edit
+                                                                product {{ i[1] }}</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+
+
+                                                        <div class="modal-body">
+                                                            <form action="/editproduct" method="POST">
+
+                                                                <div class="mb-3">
+                                                                    <label for="name" class="form-label"></label>
+                                                                    <input type="hidden" class="form-control" id="id"
+                                                                        name="id" value="{{ i[0] }}">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="name" class="form-label">Name</label>
+                                                                    <input type="text" class="form-control" id="name"
+                                                                        name="name" value="{{ i[1] }}">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="buying_price" class="form-label">Buying
+                                                                        Price</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="buying_price" name="buying_price"
+                                                                        value="{{ i[2] }}">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="selling_price"
+                                                                        class="form-label">Selling
+                                                                        Price</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="selling_price" name="selling_price"
+                                                                        value="{{ i[3] }}">
+                                                                </div>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Update</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}

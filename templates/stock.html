@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style>
+    .bg-image {
+/* The image used */
+background-image: url(/static/images/bgflllll.png);
+/* Add the blur effect */
+filter: blur(8px);
+-webkit-filter: blur(8px);
+
+/* Full height */
+height: 100%;
+
+/* Center and scale the image nicely */
+background-position: right;
+background-repeat: no-repeat;
+background-size: cover;
+}
+</style>
+
+<div class="bg-image"></div>
+<div class="container">
+<div class="col-12">
+    <div class="row">
+        <div class="col-lg-5 col-md-6 col-sm-12">
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                + Add stock
+            </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add a stock</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/addstock" method="POST">
+
+                        <!-- <label for="fname">product_id:</label><br> -->
+                        <select name="pid" id="product">
+                            <option value="">Select a product</option>
+                            {% for i in prods %}
+                            <option value="{{ i[0] }}">{{ i[1] }}</option>
+                            {% endfor %}
+                        </select><br><br>
+                        <label for="lname">quantity:</label>
+                        <input type="text" id="lname" name="quantity"><br><br>
+
+                        <button type="submit" class="btn btn-primary">Submit</button><br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <table id="myTable" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product ID</th>
+                        <th>Quantity</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for st in stock %}
+                    <tr>
+                        <td>{{ st[0] }}</td>
+                        <td name="pid" id="product">
+                            {% for i in prods %}
+                            {% if i[0] == st[1] %}
+                            {{ i[1] }}
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ st[2] }}</td>
+                        <td>{{ st[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
